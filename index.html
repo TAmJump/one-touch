@@ -4,488 +4,143 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>僕らは24時間の何でも屋ではない｜ワンタッチ管理</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Syne:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
   :root {
-    --ink: #111111;
-    --white: #ffffff;
-    --off-white: #f7f7f7;
-    --gray-100: #eeeeee;
-    --gray-200: #d9d9d9;
-    --gray-400: #8a8a8a;
-    --gray-600: #5a5a5a;
-    --gray-800: #2a2a2a;
-    --accent: #d4380d;
-    --font-display: 'Syne', 'Noto Sans JP', sans-serif;
+    --ink: #111111; --white: #ffffff; --off-white: #f7f7f7;
+    --gray-100: #eeeeee; --gray-200: #d9d9d9; --gray-400: #8a8a8a;
+    --gray-600: #5a5a5a; --gray-800: #2a2a2a; --accent: #d4380d;
     --font-body: 'Noto Sans JP', sans-serif;
     --font-serif: 'Cormorant Garamond', serif;
   }
-
   html { scroll-behavior: smooth; font-size: 16px; }
+  body { font-family: var(--font-body); background: var(--white); color: var(--ink); line-height: 1.8; font-weight: 400; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 
-  body {
-    font-family: var(--font-body);
-    background: var(--white);
-    color: var(--ink);
-    line-height: 1.8;
-    font-weight: 400;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-  }
-
-  /* ===== BACK BUTTON ===== */
-  .corp-back {
-    position: fixed;
-    top: 16px;
-    right: 16px;
-    z-index: 100;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    padding: 6px 14px;
-    border-radius: 999px;
-    border: 1px solid rgba(255,255,255,.5);
-    background: rgba(255,255,255,.85);
-    backdrop-filter: blur(10px);
-    text-decoration: none;
-    font-family: var(--font-display);
-    font-weight: 500;
-    font-size: 11px;
-    letter-spacing: .3px;
-    color: var(--gray-600);
-    transition: all .25s;
-  }
-  .corp-back:hover { border-color: var(--accent); color: var(--accent); background: rgba(212,56,13,.06); }
+  .corp-back { position: fixed; top: 16px; right: 16px; z-index: 100; display: inline-flex; align-items: center; gap: 5px; padding: 6px 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,.5); background: rgba(255,255,255,.85); backdrop-filter: blur(10px); text-decoration: none; font-weight: 500; font-size: 11px; letter-spacing: .3px; color: var(--gray-600); transition: all .25s; }
+  .corp-back:hover { border-color: var(--accent); color: var(--accent); }
   .corp-back .arr { transition: transform .25s; }
   .corp-back:hover .arr { transform: translateX(-3px); }
 
-  .reveal {
-    opacity: 0;
-    transform: translateY(32px);
-    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-  }
+  .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  /* ===== HERO ===== */
-  .hero {
+  /* HERO */
+  .hero { padding: 160px 32px 100px; text-align: center; background: linear-gradient(180deg, var(--white) 0%, var(--off-white) 100%); }
+  .hero-inner { max-width: 880px; margin: 0 auto; }
+  .hero-eyebrow { font-family: var(--font-serif); font-size: 13px; letter-spacing: 6px; text-transform: uppercase; color: var(--gray-400); margin-bottom: 32px; opacity: 0; animation: heroIn 0.8s 0.2s forwards; }
+  .hero h1 { font-weight: 700; font-size: clamp(30px, 5.5vw, 64px); line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 32px; opacity: 0; animation: heroIn 0.8s 0.4s forwards; }
+  .hero-sub { font-size: clamp(14px, 1.4vw, 16px); font-weight: 300; color: var(--gray-600); line-height: 2; margin-bottom: 56px; opacity: 0; animation: heroIn 0.8s 0.6s forwards; }
+
+  .hero-video { max-width: 720px; margin: 0 auto; opacity: 0; animation: heroIn 0.8s 0.8s forwards; }
+  .video-frame {
     position: relative;
-    min-height: 80vh;
-    display: flex;
-    align-items: flex-end;
-    padding: 0 0 80px 0;
+    padding: 24px;
     background: var(--white);
-  }
-
-  .hero-content {
-    position: relative;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 0 32px;
-    width: 100%;
-  }
-
-  .hero-eyebrow {
-    font-family: var(--font-serif);
-    font-size: 13px;
-    letter-spacing: 6px;
-    text-transform: uppercase;
-    color: var(--gray-400);
-    margin-bottom: 28px;
-    opacity: 0;
-    animation: heroIn 0.8s 0.2s forwards;
-  }
-
-  .hero h1 {
-    font-family: var(--font-body);
-    font-weight: 700;
-    font-size: clamp(32px, 6vw, 72px);
-    line-height: 1.15;
-    letter-spacing: -0.03em;
-    margin-bottom: 40px;
-    opacity: 0;
-    animation: heroIn 0.8s 0.4s forwards;
-  }
-
-  .hero-body {
-    max-width: 520px;
-    opacity: 0;
-    animation: heroIn 0.8s 0.6s forwards;
-  }
-
-  .hero-body .sub {
-    font-size: clamp(14px, 1.5vw, 16px);
-    font-weight: 300;
-    color: var(--gray-600);
-    line-height: 2;
-  }
-
-  @keyframes heroIn {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ===== PROBLEM ===== */
-  .problem-section {
-    padding: 140px 32px;
-    background: var(--off-white);
-    border-top: 1px solid var(--gray-100);
-  }
-
-  .problem-section .inner {
-    max-width: 760px;
-    margin: 0 auto;
-  }
-
-  .problem-section .label {
-    font-family: var(--font-serif);
-    font-size: 13px;
-    letter-spacing: 6px;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 20px;
-  }
-
-  .problem-section h2 {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: clamp(24px, 4.5vw, 44px);
-    line-height: 1.25;
-    letter-spacing: -0.02em;
-    margin-bottom: 48px;
-  }
-
-  .problem-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    border-top: 1px solid var(--gray-200);
-  }
-
-  .problem-item {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 24px 0;
-    border-bottom: 1px solid var(--gray-200);
-    font-size: clamp(15px, 1.6vw, 17px);
-    font-weight: 500;
-    color: var(--ink);
-  }
-
-  .problem-item::before {
-    content: '';
-    width: 8px;
-    height: 8px;
-    background: var(--accent);
-    border-radius: 50%;
-    flex-shrink: 0;
-    opacity: 0.5;
-  }
-
-  /* ===== SOLUTION ===== */
-  .solution-section {
-    padding: 140px 32px;
-    background: var(--white);
-    border-top: 1px solid var(--gray-100);
-  }
-
-  .solution-section .inner {
-    max-width: 760px;
-    margin: 0 auto;
-  }
-
-  .solution-section .label {
-    font-family: var(--font-serif);
-    font-size: 13px;
-    letter-spacing: 6px;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 20px;
-  }
-
-  .solution-section h2 {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: clamp(24px, 4.5vw, 44px);
-    line-height: 1.25;
-    letter-spacing: -0.02em;
-    margin-bottom: 32px;
-  }
-
-  .solution-section p {
-    font-size: clamp(14px, 1.5vw, 16px);
-    font-weight: 300;
-    line-height: 2.2;
-    color: var(--gray-600);
-  }
-
-  .flow {
-    margin-top: 56px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0;
-    flex-wrap: wrap;
-  }
-
-  .flow-step {
-    text-align: center;
-    padding: 24px 28px;
-  }
-
-  .flow-step .num {
-    font-family: var(--font-serif);
-    font-size: 11px;
-    letter-spacing: 4px;
-    color: var(--gray-400);
-    margin-bottom: 8px;
-  }
-
-  .flow-step .txt {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(16px, 2vw, 20px);
-    letter-spacing: -0.01em;
-  }
-
-  .flow-arrow {
-    font-size: 20px;
-    color: var(--gray-200);
-    flex-shrink: 0;
-  }
-
-  /* ===== VIDEO ===== */
-  .video-section {
-    padding: 100px 32px;
-    background: var(--off-white);
-    border-top: 1px solid var(--gray-100);
-  }
-
-  .video-section .inner {
-    max-width: 760px;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .video-section .label {
-    font-family: var(--font-serif);
-    font-size: 13px;
-    letter-spacing: 6px;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 20px;
-  }
-
-  .video-section h2 {
-    font-family: var(--font-body);
-    font-weight: 700;
-    font-size: clamp(22px, 4vw, 36px);
-    letter-spacing: -0.02em;
-    margin-bottom: 48px;
-  }
-
-  .video-wrap {
-    border-radius: 4px;
-    overflow: hidden;
-    background: #000;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-  }
-
-  .video-wrap video {
-    width: 100%;
-    display: block;
-  }
-
-  /* ===== TARGET ===== */
-  .target-section {
-    padding: 100px 32px;
-    background: var(--white);
-    border-top: 1px solid var(--gray-100);
-    text-align: center;
-  }
-
-  .target-section .label {
-    font-family: var(--font-serif);
-    font-size: 13px;
-    letter-spacing: 6px;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 20px;
-  }
-
-  .target-section h2 {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: clamp(22px, 4vw, 36px);
-    letter-spacing: -0.02em;
-    margin-bottom: 40px;
-  }
-
-  .target-tags {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-
-  .target-tag {
-    padding: 12px 28px;
     border: 1px solid var(--gray-200);
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    color: var(--gray-600);
+    box-shadow: 0 24px 64px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
   }
-
-  /* ===== SNS ===== */
-  .sns-strip {
-    padding: 72px 32px;
-    text-align: center;
-    background: var(--off-white);
-    border-top: 1px solid var(--gray-100);
-  }
-
-  .sns-label {
-    font-family: var(--font-serif);
-    font-size: 13px;
-    letter-spacing: 6px;
-    text-transform: uppercase;
-    color: var(--gray-400);
-    margin-bottom: 28px;
-  }
-
-  .sns-links {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-  }
-
-  .sns-link-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    color: var(--gray-600);
-    transition: color 0.25s;
-  }
-
-  .sns-link-item:hover { color: var(--ink); }
-
-  .sns-icon {
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-  }
-
-  .sns-icon svg {
-    width: 100%;
-    height: 100%;
-    fill: currentColor;
-  }
-
-  .sns-text {
-    font-family: var(--font-display);
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 1px;
-  }
-
-  /* ===== CTA ===== */
-  .cta-final {
-    padding: 140px 32px;
-    text-align: center;
+  .video-frame::before {
+    content: '▶  30 sec.';
+    position: absolute;
+    top: -12px;
+    left: 32px;
     background: var(--white);
-    border-top: 1px solid var(--gray-100);
-  }
-
-  .cta-above {
+    padding: 2px 16px;
     font-family: var(--font-serif);
-    font-size: 14px;
-    font-weight: 300;
-    color: var(--gray-400);
-    margin-bottom: 20px;
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
   }
-
-  .cta-final h2 {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: clamp(28px, 5vw, 56px);
-    letter-spacing: -0.02em;
-    line-height: 1.2;
-    margin-bottom: 48px;
+  .video-frame::after {
+    content: '';
+    position: absolute;
+    top: 8px; left: 8px; right: 8px; bottom: 8px;
+    border: 1px solid var(--gray-100);
+    pointer-events: none;
   }
+  .video-corner {
+    position: absolute;
+    width: 16px; height: 16px;
+    border-color: var(--accent);
+    border-style: solid;
+    border-width: 0;
+  }
+  .video-corner.tl { top: -2px; left: -2px; border-top-width: 2px; border-left-width: 2px; }
+  .video-corner.tr { top: -2px; right: -2px; border-top-width: 2px; border-right-width: 2px; }
+  .video-corner.bl { bottom: -2px; left: -2px; border-bottom-width: 2px; border-left-width: 2px; }
+  .video-corner.br { bottom: -2px; right: -2px; border-bottom-width: 2px; border-right-width: 2px; }
+  .video-frame video { width: 100%; display: block; position: relative; z-index: 1; }
 
+  @keyframes heroIn { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* SECTIONS COMMON */
+  .section-label { font-family: var(--font-serif); font-size: 13px; letter-spacing: 6px; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
+  .section-title { font-weight: 700; font-size: clamp(24px, 4vw, 40px); line-height: 1.3; letter-spacing: -0.02em; margin-bottom: 48px; }
+
+  /* PROBLEM */
+  .problem-section { padding: 120px 32px; background: var(--white); border-top: 1px solid var(--gray-100); }
+  .problem-section .inner { max-width: 760px; margin: 0 auto; }
+  .problem-list { display: flex; flex-direction: column; border-top: 1px solid var(--gray-200); }
+  .problem-item { display: flex; align-items: center; gap: 20px; padding: 24px 0; border-bottom: 1px solid var(--gray-200); font-size: clamp(15px, 1.5vw, 17px); font-weight: 500; }
+  .problem-item::before { content: ''; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; flex-shrink: 0; opacity: 0.5; }
+
+  /* SOLUTION */
+  .solution-section { padding: 120px 32px; background: var(--off-white); border-top: 1px solid var(--gray-100); }
+  .solution-section .inner { max-width: 760px; margin: 0 auto; }
+  .solution-section p { font-size: clamp(14px, 1.4vw, 16px); font-weight: 300; line-height: 2.2; color: var(--gray-600); }
+  .flow { margin-top: 56px; display: flex; align-items: center; justify-content: center; gap: 0; flex-wrap: wrap; }
+  .flow-step { text-align: center; padding: 24px 28px; }
+  .flow-step .num { font-family: var(--font-serif); font-size: 11px; letter-spacing: 4px; color: var(--gray-400); margin-bottom: 8px; }
+  .flow-step .txt { font-weight: 700; font-size: clamp(16px, 2vw, 20px); }
+  .flow-arrow { font-size: 20px; color: var(--gray-200); flex-shrink: 0; }
+
+  /* TARGET */
+  .target-section { padding: 100px 32px; background: var(--white); border-top: 1px solid var(--gray-100); text-align: center; }
+  .target-section h2 { font-weight: 700; font-size: clamp(22px, 3.5vw, 36px); letter-spacing: -0.02em; margin-bottom: 40px; }
+  .target-tags { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; }
+  .target-tag { padding: 12px 28px; border: 1px solid var(--gray-200); font-size: 14px; font-weight: 500; letter-spacing: 0.04em; color: var(--gray-600); }
+
+  /* SNS */
+  .sns-strip { padding: 72px 32px; text-align: center; background: var(--off-white); border-top: 1px solid var(--gray-100); }
+  .sns-label { font-family: var(--font-serif); font-size: 13px; letter-spacing: 6px; text-transform: uppercase; color: var(--gray-400); margin-bottom: 28px; }
+  .sns-links { display: flex; justify-content: center; gap: 40px; }
+  .sns-link-item { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--gray-600); transition: color 0.25s; }
+  .sns-link-item:hover { color: var(--ink); }
+  .sns-icon { width: 20px; height: 20px; display: flex; align-items: center; }
+  .sns-icon svg { width: 100%; height: 100%; fill: currentColor; }
+  .sns-text { font-size: 13px; font-weight: 500; letter-spacing: 1px; }
+
+  /* CTA */
+  .cta-final { padding: 140px 32px; text-align: center; background: var(--white); border-top: 1px solid var(--gray-100); }
+  .cta-above { font-family: var(--font-serif); font-size: 14px; font-weight: 300; color: var(--gray-400); margin-bottom: 20px; }
+  .cta-final h2 { font-weight: 700; font-size: clamp(28px, 5vw, 56px); letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 48px; }
   .cta-final h2 span { color: var(--accent); }
-
-  .cta-btn {
-    display: inline-block;
-    padding: 20px 64px;
-    border: 2px solid var(--ink);
-    color: var(--ink);
-    text-decoration: none;
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 15px;
-    letter-spacing: 4px;
-    transition: all 0.35s;
-  }
-
+  .cta-btn { display: inline-block; padding: 20px 64px; border: 2px solid var(--ink); color: var(--ink); text-decoration: none; font-weight: 700; font-size: 15px; letter-spacing: 4px; transition: all 0.35s; }
   .cta-btn:hover { background: var(--ink); color: var(--white); }
 
-  /* ===== FOOTER ===== */
-  footer {
-    padding: 36px 32px;
-    text-align: center;
-    background: var(--white);
-    border-top: 1px solid var(--gray-100);
-  }
-
-  .footer-legal {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 0;
-    margin-bottom: 16px;
-  }
-
-  .footer-legal a {
-    font-size: 11px;
-    color: var(--gray-400);
-    text-decoration: none;
-    letter-spacing: 1px;
-    padding: 0 12px;
-    border-right: 1px solid var(--gray-200);
-    line-height: 1;
-    transition: color .25s;
-  }
-
+  /* FOOTER */
+  footer { padding: 36px 32px; text-align: center; background: var(--white); border-top: 1px solid var(--gray-100); }
+  .footer-legal { display: flex; justify-content: center; flex-wrap: wrap; gap: 0; margin-bottom: 16px; }
+  .footer-legal a { font-size: 11px; color: var(--gray-400); text-decoration: none; letter-spacing: 1px; padding: 0 12px; border-right: 1px solid var(--gray-200); line-height: 1; transition: color .25s; }
   .footer-legal a:last-child { border-right: none; }
   .footer-legal a:hover { color: var(--accent); }
+  footer p { font-size: 11px; color: var(--gray-400); letter-spacing: 2px; }
 
-  footer p {
-    font-size: 11px;
-    color: var(--gray-400);
-    letter-spacing: 2px;
-  }
-
-  /* ===== RESPONSIVE ===== */
+  /* RESPONSIVE */
   @media (max-width: 600px) {
-    .hero { min-height: 70vh; padding-bottom: 60px; }
-    .hero-content { padding: 0 24px; }
-    .problem-section,
-    .solution-section { padding: 100px 24px; }
-    .video-section { padding: 80px 24px; }
-    .target-section { padding: 72px 24px; }
+    .hero { padding: 120px 24px 80px; }
+    .problem-section, .solution-section { padding: 80px 24px; }
+    .target-section { padding: 64px 24px; }
     .sns-strip { padding: 48px 24px; }
-    .cta-final { padding: 100px 24px; }
+    .cta-final { padding: 80px 24px; }
     .sns-links { gap: 28px; }
     .target-tag { padding: 10px 18px; font-size: 12px; }
     .flow { flex-direction: column; gap: 4px; }
     .flow-arrow { transform: rotate(90deg); }
+    .video-frame { padding: 14px; }
+    .video-corner { width: 12px; height: 12px; }
   }
 </style>
 </head>
@@ -493,25 +148,29 @@
 
 <a class="corp-back" href="https://tamjump.github.io/TAmj/index.html"><span class="arr">←</span> TAmJ.Corp</a>
 
-<!-- HERO -->
 <section class="hero">
-  <div class="hero-content">
+  <div class="hero-inner">
     <p class="hero-eyebrow">One-Touch Management</p>
     <h1>僕らは24時間の<br>何でも屋ではない。</h1>
-    <div class="hero-body">
-      <p class="sub">
-        トラブルが起きるたびに管理者へ連絡が集中する。<br>
-        それは人の問題ではなく、構造の問題。
-      </p>
+    <p class="hero-sub">トラブルが起きるたびに管理者へ連絡が集中する。<br>それは人の問題ではなく、構造の問題。</p>
+    <div class="hero-video">
+      <div class="video-frame">
+        <span class="video-corner tl"></span>
+        <span class="video-corner tr"></span>
+        <span class="video-corner bl"></span>
+        <span class="video-corner br"></span>
+        <video controls playsinline preload="metadata">
+          <source src="one-touch-ad.mp4" type="video/mp4">
+        </video>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- PROBLEM -->
 <section class="problem-section reveal">
   <div class="inner">
-    <p class="label">Problem</p>
-    <h2>施設長に、<br>全部くる。</h2>
+    <p class="section-label">Problem</p>
+    <h2 class="section-title">施設長に、<br>全部くる。</h2>
     <div class="problem-list">
       <div class="problem-item">壊れた時、誰の管轄か分からない</div>
       <div class="problem-item">契約書はどこにあるか分からない</div>
@@ -521,46 +180,21 @@
   </div>
 </section>
 
-<!-- SOLUTION -->
 <section class="solution-section reveal">
   <div class="inner">
-    <p class="label">Solution</p>
-    <h2>押すだけで、<br>担当先へ戻す。</h2>
-    <p>
-      電話と調整の無限ループを止める。<br>
-      現場からワンタッチで担当先へ直送。<br>
-      管理者は"管理人"ではない。
-    </p>
+    <p class="section-label">Solution</p>
+    <h2 class="section-title">押すだけで、<br>担当先へ戻す。</h2>
+    <p>電話と調整の無限ループを止める。<br>現場からワンタッチで担当先へ直送。<br>管理者は"管理人"ではない。</p>
     <div class="flow">
-      <div class="flow-step">
-        <p class="num">BEFORE</p>
-        <p class="txt">現場 → 管理者 → 業者</p>
-      </div>
+      <div class="flow-step"><p class="num">BEFORE</p><p class="txt">現場 → 管理者 → 業者</p></div>
       <div class="flow-arrow">→</div>
-      <div class="flow-step">
-        <p class="num">AFTER</p>
-        <p class="txt">現場 → <span style="color:var(--accent)">ワンタッチ</span> → 担当先</p>
-      </div>
+      <div class="flow-step"><p class="num">AFTER</p><p class="txt">現場 → <span style="color:var(--accent)">ワンタッチ</span> → 担当先</p></div>
     </div>
   </div>
 </section>
 
-<!-- VIDEO -->
-<section class="video-section reveal">
-  <div class="inner">
-    <p class="label">30 Seconds</p>
-    <h2>30秒でわかる。</h2>
-    <div class="video-wrap">
-      <video controls playsinline preload="metadata">
-        <source src="one-touch-ad.mp4" type="video/mp4">
-      </video>
-    </div>
-  </div>
-</section>
-
-<!-- TARGET -->
 <section class="target-section reveal">
-  <p class="label">Target</p>
+  <p class="section-label">Target</p>
   <h2>こんな現場で使える。</h2>
   <div class="target-tags">
     <div class="target-tag">介護施設</div>
@@ -571,33 +205,21 @@
   </div>
 </section>
 
-<!-- SNS -->
 <section class="sns-strip">
   <p class="sns-label">Connect</p>
   <div class="sns-links">
-    <a href="https://line.me/" target="_blank" rel="noopener noreferrer" class="sns-link-item">
-      <span class="sns-icon"><svg viewBox="0 0 24 24"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386a.63.63 0 0 1-.63-.629V8.108a.63.63 0 0 1 .63-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016a.63.63 0 0 1-.63.629.626.626 0 0 1-.51-.262l-2.418-3.294v2.926a.63.63 0 0 1-.63.63.63.63 0 0 1-.631-.63V8.108a.63.63 0 0 1 .631-.63c.2 0 .389.098.51.262l2.418 3.294V8.108c0-.345.282-.63.63-.63.349 0 .63.285.63.63v4.771zm-5.741 0a.63.63 0 0 1-1.261 0V8.108a.63.63 0 0 1 1.261 0v4.771zm-2.527.629H4.856a.63.63 0 0 1-.63-.629V8.108a.63.63 0 0 1 1.261 0v4.141h1.856c.348 0 .63.283.63.63 0 .344-.282.629-.63.629zM12 1C5.926 1 1 5.02 1 9.96c0 4.435 3.934 8.146 9.25 8.853.36.078.849.238.973.546.111.281.073.72.036 1.003l-.157.938c-.048.284-.222 1.111.975.605 1.196-.505 6.453-3.802 8.806-6.505C22.67 13.396 23 11.774 23 9.96 23 5.02 18.074 1 12 1z"/></svg></span>
-      <span class="sns-text">LINE</span>
-    </a>
-    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="sns-link-item">
-      <span class="sns-icon"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg></span>
-      <span class="sns-text">Instagram</span>
-    </a>
-    <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" class="sns-link-item">
-      <span class="sns-icon"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></span>
-      <span class="sns-text">YouTube</span>
-    </a>
+    <a href="https://line.me/" target="_blank" rel="noopener noreferrer" class="sns-link-item"><span class="sns-icon"><svg viewBox="0 0 24 24"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386a.63.63 0 0 1-.63-.629V8.108a.63.63 0 0 1 .63-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016a.63.63 0 0 1-.63.629.626.626 0 0 1-.51-.262l-2.418-3.294v2.926a.63.63 0 0 1-.63.63.63.63 0 0 1-.631-.63V8.108a.63.63 0 0 1 .631-.63c.2 0 .389.098.51.262l2.418 3.294V8.108c0-.345.282-.63.63-.63.349 0 .63.285.63.63v4.771zm-5.741 0a.63.63 0 0 1-1.261 0V8.108a.63.63 0 0 1 1.261 0v4.771zm-2.527.629H4.856a.63.63 0 0 1-.63-.629V8.108a.63.63 0 0 1 1.261 0v4.141h1.856c.348 0 .63.283.63.63 0 .344-.282.629-.63.629zM12 1C5.926 1 1 5.02 1 9.96c0 4.435 3.934 8.146 9.25 8.853.36.078.849.238.973.546.111.281.073.72.036 1.003l-.157.938c-.048.284-.222 1.111.975.605 1.196-.505 6.453-3.802 8.806-6.505C22.67 13.396 23 11.774 23 9.96 23 5.02 18.074 1 12 1z"/></svg></span><span class="sns-text">LINE</span></a>
+    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="sns-link-item"><span class="sns-icon"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg></span><span class="sns-text">Instagram</span></a>
+    <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" class="sns-link-item"><span class="sns-icon"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></span><span class="sns-text">YouTube</span></a>
   </div>
 </section>
 
-<!-- CTA -->
 <section class="cta-final reveal">
   <p class="cta-above">電話と調整の無限ループを、終わらせる。</p>
   <h2>押すだけで、<span>終わる</span>。</h2>
   <a href="https://tamjump.github.io/TAmj/contact.html" class="cta-btn">相談する</a>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-legal">
     <a href="https://tamjump.github.io/TAmj/privacy.html">Privacy Policy</a>
@@ -610,12 +232,9 @@
 </footer>
 
 <script>
-  const els = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-  els.forEach(el => io.observe(el));
+  document.querySelectorAll('.reveal').forEach(el => {
+    new IntersectionObserver(([e]) => { if (e.isIntersecting) e.target.classList.add('visible'); }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }).observe(el);
+  });
 </script>
-
 </body>
 </html>
