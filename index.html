@@ -162,25 +162,26 @@
 
   /* PRICING */
   .pricing-section { padding: 120px 32px; background: var(--off-white); border-top: 1px solid var(--gray-100); }
-  .pricing-section .inner { max-width: 760px; margin: 0 auto; }
-  .plan-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--gray-200); border: 1px solid var(--gray-200); margin-top: 8px; }
-  .plan { background: var(--white); padding: 40px 32px; position: relative; display: flex; flex-direction: column; }
+  .pricing-section .inner { max-width: 1000px; margin: 0 auto; }
+  .plan-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: var(--gray-200); border: 1px solid var(--gray-200); margin-top: 8px; }
+  .plan { background: var(--white); padding: 40px 28px; position: relative; display: flex; flex-direction: column; }
   .plan-pro { background: var(--white); }
   .plan .plan-list { flex: 1; }
   .plan-tag { font-family: var(--font-serif); font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
   .plan-name { font-weight: 700; font-size: 18px; letter-spacing: -0.01em; margin-bottom: 8px; }
-  .plan-price { font-size: 32px; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 6px; }
-  .plan-per { font-size: 14px; font-weight: 300; color: var(--gray-400); letter-spacing: 0; }
+  .plan-price { font-size: 28px; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 6px; }
+  .plan-per { font-size: 13px; font-weight: 300; color: var(--gray-400); letter-spacing: 0; }
   .plan-desc { font-size: 13px; font-weight: 300; color: var(--gray-400); margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--gray-100); }
   .plan-list { list-style: none; margin-bottom: 32px; display: flex; flex-direction: column; gap: 0; }
-  .plan-list li { font-size: 13px; font-weight: 400; color: var(--gray-600); padding: 10px 0; border-bottom: 1px solid var(--gray-100); display: flex; align-items: center; gap: 12px; }
-  .plan-list li::before { content: ''; width: 4px; height: 4px; background: var(--gray-400); border-radius: 50%; flex-shrink: 0; }
-  .plan-btn { display: block; text-align: center; padding: 14px 24px; border: 1px solid var(--gray-200); color: var(--gray-800); text-decoration: none; font-size: 13px; font-weight: 700; letter-spacing: 3px; transition: all 0.3s; }
+  .plan-list li { font-size: 13px; font-weight: 400; color: var(--gray-600); padding: 10px 0; border-bottom: 1px solid var(--gray-100); display: flex; align-items: center; justify-content: space-between; }
+  .plan-btn { display: block; text-align: center; padding: 14px 16px; border: 1px solid var(--gray-200); color: var(--gray-800); text-decoration: none; font-size: 12px; font-weight: 700; letter-spacing: 1px; transition: all 0.3s; }
   .plan-btn:hover { border-color: var(--ink); color: var(--ink); }
   .plan-btn-pro { border-color: var(--ink); color: var(--ink); }
   .plan-btn-pro:hover { background: var(--ink); color: var(--white); }
+  .plan-btn-annual { background: var(--ink); color: var(--white); border-color: var(--ink); }
+  .plan-btn-annual:hover { opacity: 0.85; }
 
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     .features-section, .flow-section, .pricing-section { padding: 80px 24px; }
     .feature-item { grid-template-columns: 1fr; gap: 8px; }
     .plan-row { grid-template-columns: 1fr; }
@@ -330,49 +331,69 @@
       <h2 class="section-title">シンプルな<br>料金プラン</h2>
       <p style="text-align:center;font-size:14px;color:var(--gray-400);margin-bottom:32px;">会員登録無料・クレジットカード不要</p>
       <div class="plan-row">
+
+        <!-- FREE -->
         <div class="plan">
-          <div class="plan-header">
-            <div class="plan-tag" style="color:var(--gray-400);letter-spacing:4px;font-size:11px;font-family:var(--font-serif);text-transform:uppercase;margin-bottom:20px;">FREE</div>
-            <div class="plan-name">会員登録無料</div>
-            <div class="plan-price">¥0<span class="plan-per"> / 月</span></div>
-            <div class="plan-desc">小規模施設・お試しに</div>
-          </div>
+          <div class="plan-tag" style="color:var(--gray-400);">FREE</div>
+          <div class="plan-name">会員登録無料</div>
+          <div class="plan-price">¥0<span class="plan-per"> / 月</span></div>
+          <div class="plan-desc">小規模施設・お試しに</div>
           <ul class="plan-list">
-            <li><span style="color:var(--gray-400);">事業所</span><span style="margin-left:auto;">1か所まで</span></li>
-            <li><span style="color:var(--gray-400);">アカウント</span><span style="margin-left:auto;">5名まで</span></li>
-            <li><span style="color:var(--gray-400);">管理会社連携</span><span style="margin-left:auto;">3社まで</span></li>
-            <li><span style="color:var(--gray-400);">商品マスタ</span><span style="margin-left:auto;">100件まで</span></li>
-            <li><span style="color:var(--gray-400);">通報・写真添付</span><span style="margin-left:auto;">○</span></li>
-            <li><span style="color:var(--gray-400);">CSV / Excel インポート</span><span style="margin-left:auto;">○</span></li>
-            <li><span style="color:var(--gray-400);">PDF / 画像インポート</span><span style="margin-left:auto;">×</span></li>
-            <li><span style="color:var(--gray-400);">通報履歴 CSV出力</span><span style="margin-left:auto;">×</span></li>
-            <li><span style="color:var(--gray-400);">監査ログ</span><span style="margin-left:auto;">×</span></li>
+            <li><span>事業所</span><span>1か所まで</span></li>
+            <li><span>アカウント</span><span>5名まで</span></li>
+            <li><span>管理会社連携</span><span>3社まで</span></li>
+            <li><span>商品マスタ</span><span>100件まで</span></li>
+            <li><span>通報・写真添付</span><span>利用可</span></li>
+            <li><span>CSV / Excel インポート</span><span>利用可</span></li>
+            <li><span>PDF / 画像インポート</span><span>—</span></li>
+            <li><span>通報履歴 CSV出力</span><span>—</span></li>
+            <li><span>監査ログ</span><span>—</span></li>
           </ul>
           <a href="https://tamjump.github.io/onetouch_app/register.html" class="plan-btn">無料で始める</a>
         </div>
+
+        <!-- Pro 月払い -->
         <div class="plan plan-pro">
-          <div class="plan-tag">おすすめ</div>
-          <div class="plan-header">
-            <div class="plan-name">Pro プラン</div>
-            <div class="plan-price">¥200<span class="plan-per"> / ユーザー / 月</span></div>
-            <div class="plan-desc">例）20名利用 → ¥4,000 / 月</div>
-          </div>
+          <div class="plan-tag">Pro プラン【月払い】</div>
+          <div class="plan-name">月払い</div>
+          <div class="plan-price">¥200<span class="plan-per"> / ユーザー / 月</span></div>
+          <div class="plan-desc">例）20名利用 → ¥4,000 / 月</div>
           <ul class="plan-list">
-            <li><span style="color:var(--gray-600);">事業所</span><span style="margin-left:auto;font-weight:700;">無制限</span></li>
-            <li><span style="color:var(--gray-600);">アカウント</span><span style="margin-left:auto;font-weight:700;">無制限</span></li>
-            <li><span style="color:var(--gray-600);">管理会社連携</span><span style="margin-left:auto;font-weight:700;">無制限</span></li>
-            <li><span style="color:var(--gray-600);">商品マスタ</span><span style="margin-left:auto;font-weight:700;">無制限</span></li>
-            <li><span style="color:var(--gray-600);">通報・写真添付</span><span style="margin-left:auto;font-weight:700;">○</span></li>
-            <li><span style="color:var(--gray-600);">CSV / Excel インポート</span><span style="margin-left:auto;font-weight:700;">○</span></li>
-            <li><span style="color:var(--gray-600);">PDF / 画像インポート</span><span style="margin-left:auto;font-weight:700;">○</span></li>
-            <li><span style="color:var(--gray-600);">通報履歴 CSV出力</span><span style="margin-left:auto;font-weight:700;">○</span></li>
-            <li><span style="color:var(--gray-600);">監査ログ</span><span style="margin-left:auto;font-weight:700;">○</span></li>
+            <li><span>事業所</span><span style="font-weight:700;">無制限</span></li>
+            <li><span>アカウント</span><span style="font-weight:700;">無制限</span></li>
+            <li><span>管理会社連携</span><span style="font-weight:700;">無制限</span></li>
+            <li><span>商品マスタ</span><span style="font-weight:700;">無制限</span></li>
+            <li><span>通報・写真添付</span><span style="font-weight:700;">利用可</span></li>
+            <li><span>CSV / Excel インポート</span><span style="font-weight:700;">利用可</span></li>
+            <li><span>PDF / 画像インポート</span><span style="font-weight:700;">利用可</span></li>
+            <li><span>通報履歴 CSV出力</span><span style="font-weight:700;">利用可</span></li>
+            <li><span>監査ログ</span><span style="font-weight:700;">利用可</span></li>
           </ul>
-          <a href="https://square.link/u/UPxb1fRv" target="_blank" class="plan-btn plan-btn-pro" style="margin-bottom:10px;">月払いで申し込む　¥200/ユーザー/月</a>
-          <a href="https://square.link/u/8kIFqJxf" target="_blank" class="plan-btn plan-btn-pro" style="background:var(--ink);color:var(--white);">年払いで申し込む　¥2,200/ユーザー/年 🎁 1ヶ月分お得</a>
+          <a href="https://square.link/u/UPxb1fRv" target="_blank" class="plan-btn plan-btn-pro">月払いで申し込む</a>
         </div>
+
+        <!-- Pro 年払い -->
+        <div class="plan plan-pro">
+          <div class="plan-tag">Pro プラン【年払い】</div>
+          <div class="plan-name">年払い <span style="font-size:12px;font-weight:400;color:var(--accent);">🎁 1ヶ月分お得</span></div>
+          <div class="plan-price">¥2,200<span class="plan-per"> / ユーザー / 年</span></div>
+          <div class="plan-desc">例）20名利用 → ¥44,000 / 年<br><span style="font-size:11px;">月払い換算 ¥183 / ユーザー / 月</span></div>
+          <ul class="plan-list">
+            <li><span>事業所</span><span style="font-weight:700;">無制限</span></li>
+            <li><span>アカウント</span><span style="font-weight:700;">無制限</span></li>
+            <li><span>管理会社連携</span><span style="font-weight:700;">無制限</span></li>
+            <li><span>商品マスタ</span><span style="font-weight:700;">無制限</span></li>
+            <li><span>通報・写真添付</span><span style="font-weight:700;">利用可</span></li>
+            <li><span>CSV / Excel インポート</span><span style="font-weight:700;">利用可</span></li>
+            <li><span>PDF / 画像インポート</span><span style="font-weight:700;">利用可</span></li>
+            <li><span>通報履歴 CSV出力</span><span style="font-weight:700;">利用可</span></li>
+            <li><span>監査ログ</span><span style="font-weight:700;">利用可</span></li>
+          </ul>
+          <a href="https://square.link/u/8kIFqJxf" target="_blank" class="plan-btn plan-btn-annual">年払いで申し込む</a>
+        </div>
+
       </div>
-      <p style="text-align:center;font-size:12px;color:var(--gray-400);margin-top:20px;">解約はいつでも可能。解約月の末日まで利用できます。</p>
+      <p style="text-align:center;font-size:12px;color:var(--gray-400);margin-top:20px;">解約はいつでも可能。解約月の末日まで利用できます。年払いは返金対応外となります。</p>
     </div>
   </section>
 
