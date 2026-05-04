@@ -33,6 +33,65 @@
   html { scroll-behavior: smooth; font-size: 16px; }
   body { font-family: var(--font-body); background: var(--white); color: var(--ink); line-height: 1.8; font-weight: 400; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 
+  /* TOP NAV — Corp戻る + ログイン/新規登録 */
+  .top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .top-nav__corp {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+    color: var(--gray-600);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color .2s;
+  }
+  .top-nav__corp:hover { color: var(--accent); }
+  .top-nav__corp .arr { transition: transform .25s; }
+  .top-nav__corp:hover .arr { transform: translateX(-3px); }
+  .top-nav__cta { display: flex; gap: 8px; align-items: center; }
+  .top-nav__login {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gray-800);
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: all .2s;
+  }
+  .top-nav__login:hover { background: var(--gray-100); color: var(--ink); }
+  .top-nav__register {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white);
+    background: var(--accent);
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: all .2s;
+  }
+  .top-nav__register:hover { background: #b32d09; }
+  @media (max-width: 600px) {
+    .top-nav { padding: 10px 12px; }
+    .top-nav__corp { font-size: 11px; }
+    .top-nav__login { padding: 6px 10px; font-size: 12px; }
+    .top-nav__register { padding: 6px 12px; font-size: 12px; }
+    .top-nav__cta { gap: 6px; }
+  }
+
   .corp-back { position: fixed; top: 16px; right: 16px; z-index: 100; display: inline-flex; align-items: center; gap: 5px; padding: 6px 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,.5); background: rgba(255,255,255,.85); backdrop-filter: blur(10px); text-decoration: none; font-weight: 500; font-size: 11px; letter-spacing: .3px; color: var(--gray-600); transition: all .25s; }
   .corp-back:hover { border-color: var(--accent); color: var(--accent); }
   .corp-back .arr { transition: transform .25s; }
@@ -139,7 +198,7 @@
   /* FOOTER */
   footer { padding: 36px 32px; text-align: center; background: var(--white); border-top: 1px solid var(--gray-100); }
   .footer-legal { display: flex; justify-content: center; flex-wrap: wrap; gap: 0; margin-bottom: 16px; }
-  .footer-legal a { font-size: 11px; color: var(--gray-400); text-decoration: none; letter-spacing: 1px; padding: 0 12px; border-right: 1px solid var(--gray-200); line-height: 1; transition: color .25s; }
+  .footer-legal a { font-size: 13px; color: var(--gray-600); text-decoration: none; letter-spacing: .5px; padding: 6px 14px; border-right: 1px solid var(--gray-200); line-height: 1.4; transition: color .25s; }
   .footer-legal a:last-child { border-right: none; }
   .footer-legal a:hover { color: var(--accent); }
   footer p { font-size: 11px; color: var(--gray-400); letter-spacing: 2px; }
@@ -208,7 +267,15 @@
 </head>
 <body>
 
-<a class="corp-back" href="https://tamjump.github.io/TAmj/index.html"><span class="arr">←</span> TAmJ.Corp</a>
+<a class="corp-back" href="https://tamjump.github.io/TAmj/index.html" style="display:none;"><span class="arr">←</span> TAmJ.Corp</a>
+
+<header class="top-nav">
+  <a class="top-nav__corp" href="https://tamjump.github.io/TAmj/index.html"><span class="arr">←</span> TAmJ.Corp</a>
+  <div class="top-nav__cta">
+    <a class="top-nav__login" href="https://tyaruze-app.tamjump.com/login.html">ログイン</a>
+    <a class="top-nav__register" href="https://tyaruze-app.tamjump.com/register.html">新規登録</a>
+  </div>
+</header>
 
 <section class="hero">
   <div class="hero-inner">
