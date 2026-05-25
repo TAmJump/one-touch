@@ -101,11 +101,40 @@
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
   /* HERO */
-  .hero { padding: 160px 32px 100px; text-align: center; background: linear-gradient(180deg, var(--white) 0%, var(--off-white) 100%); }
-  .hero-inner { max-width: 880px; margin: 0 auto; }
-  .hero-eyebrow { font-family: var(--font-serif); font-size: 13px; letter-spacing: 6px; color: var(--gray-400); margin-bottom: 32px; opacity: 0; animation: heroIn 0.8s 0.2s forwards; }
-  .hero h1 { font-weight: 700; font-size: clamp(30px, 5.5vw, 64px); line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 32px; opacity: 0; animation: heroIn 0.8s 0.4s forwards; }
-  .hero-sub { font-size: clamp(14px, 1.4vw, 16px); font-weight: 300; color: var(--gray-600); line-height: 2; margin-bottom: 56px; opacity: 0; animation: heroIn 0.8s 0.6s forwards; }
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding: 160px 32px 100px;
+    text-align: center;
+    background: linear-gradient(180deg, var(--white) 0%, var(--off-white) 100%);
+    isolation: isolate;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('team-yaruze.jpg');
+    background-size: cover;
+    background-position: center 25%;
+    z-index: -2;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg,
+        rgba(255,255,255,.78) 0%,
+        rgba(255,255,255,.86) 25%,
+        rgba(255,255,255,.94) 55%,
+        rgba(247,247,247,1.0) 100%
+      );
+    z-index: -1;
+  }
+  .hero-inner { max-width: 880px; margin: 0 auto; position: relative; z-index: 1; }
+  .hero-eyebrow { font-family: var(--font-serif); font-size: 13px; letter-spacing: 6px; color: var(--gray-400); margin-bottom: 32px; opacity: 0; animation: heroIn 0.8s 0.2s forwards; text-shadow: 0 1px 2px rgba(255,255,255,.7); }
+  .hero h1 { font-weight: 700; font-size: clamp(30px, 5.5vw, 64px); line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 32px; opacity: 0; animation: heroIn 0.8s 0.4s forwards; text-shadow: 0 1px 3px rgba(255,255,255,.7); }
+  .hero-sub { font-size: clamp(14px, 1.4vw, 16px); font-weight: 300; color: var(--gray-600); line-height: 2; margin-bottom: 56px; opacity: 0; animation: heroIn 0.8s 0.6s forwards; text-shadow: 0 1px 2px rgba(255,255,255,.7); }
 
   .hero-video { max-width: 720px; margin: 0 auto; opacity: 0; animation: heroIn 0.8s 0.8s forwards; }
   .video-frame {
