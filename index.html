@@ -115,7 +115,7 @@
     inset: 0;
     background-image: url('team-yaruze.jpg');
     background-size: cover;
-    background-position: center 25%;
+    background-position: center 22%;
     z-index: -2;
   }
   .hero::after {
@@ -123,10 +123,17 @@
     position: absolute;
     inset: 0;
     background:
+      radial-gradient(ellipse 55% 60% at 50% 42%,
+        rgba(255,255,255,1.00) 0%,
+        rgba(255,255,255,.97) 40%,
+        rgba(255,255,255,.78) 65%,
+        rgba(255,255,255,.40) 85%,
+        rgba(255,255,255,.18) 100%
+      ),
       linear-gradient(180deg,
-        rgba(255,255,255,.78) 0%,
-        rgba(255,255,255,.86) 25%,
-        rgba(255,255,255,.94) 55%,
+        rgba(255,255,255,.20) 0%,
+        rgba(255,255,255,.00) 18%,
+        rgba(255,255,255,.00) 78%,
         rgba(247,247,247,1.0) 100%
       );
     z-index: -1;
